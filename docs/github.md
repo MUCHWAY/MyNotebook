@@ -8,7 +8,7 @@
 [Git工作流和核心原理 | GitHub基本操作 | VS Code里使用Git和关联GitHub](https://www.bilibili.com/video/BV1r3411F7kn/?spm_id_from%253D333.337.search-card.all.click)
 
 形象地理解Git的原理<br>
-![p1](./images/p1.png)<br>
+![p1](./images/p1.png "武功秘籍")<br>
 具体的Git原理<br>
 ![p2](./images/p2.png "Git原理")<br>
 我们自己电脑中的文件夹叫做工作区，还有一个隐藏的.git文件夹，叫做版本库，版本库里面存了很多东西，其中最重要的就是stage（暂存区）<bar>
@@ -26,6 +26,21 @@ git config --global user.email "Your Email"
 git config --list
 ```
 
+### 生成ssh key
+```bash
+ssh-keygen -t rsa -C "XXX@XX.com"
+```
+然后一路回车，生成ssh key。<br>
+然后在.ssh文件夹下面会生成id_rsa和id_rsa.pub两个文件，id_rsa是私钥，id_rsa.pub是公钥。<br>
+
+### 添加ssh key到github
+打开id_rsa.pub文件，复制里面的内容，然后打开github，点击头像，选择settings，然后选择SSH and GPG keys，然后点击New SSH key，然后把复制的内容粘贴到key里面，然后点击Add SSH key。<br>
+
+### 测试ssh key是否配置成功
+```bash
+ssh -T
+```
+如果出现Hi MUCHWAY! You've successfully authenticated, but GitHub does not provide shell access.说明配置成功了。<br>
 
 ### 创建版本库
 ```bash
@@ -147,6 +162,25 @@ git commit -m "fixed untracked files"
 git push origin master
 ```
 
+### checkout命令
+用于切换分支或恢复文件。它的作用取决于使用的参数。
+```bash
+ git checkout <branch>
+ ```
+它将会切换到指定的分支，并将工作目录更新为该分支的最新版本。
+```bash
+git checkout <commit>
+```
+它将会将工作目录更新为指定提交的版本，并将代码恢复到该提交的状态。这可以用于恢复到之前的版本，或者查看某个提交的代码。
+```bash
+git checkout -- <file>
+```
+它将会将指定文件恢复到最近一次提交的状态。这可以用于撤销对文件的更改。
+```bash
+git checkout
+```
+会更改工作目录和代码状态，因此在使用该命令之前，请确保已经保存了所有更改，并且已经提交了所有需要提交的更改。
+
 ## 常见问题
 ### .gitignore设置后不起作用
 [参考连接](https://lanyue.blog.csdn.net/article/details/119578464?spm%253D1001.2101.3001.6650.1%2526utm_medium%253Ddistribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-119578464-blog-122837214.235%255Ev38%255Epc_relevant_anti_t3%2526depth_1-utm_source%253Ddistribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-119578464-blog-122837214.235%255Ev38%255Epc_relevant_anti_t3%2526utm_relevant_index%253D2)
@@ -158,23 +192,36 @@ git add .  # 重新trace file
 git commit -m "fixed untracked files"
 git push origin master
 ```
-
-##配置ssh key
-### 生成ssh key
+### git pull报错
 ```bash
-ssh-keygen -t rsa -C "XXX@XX.com"
+MUCHWAY: error: Your local changes to the following files would be overwritten by merge:
+        docs/index.md
+        mkdocs.yml
+Please commit your changes or stash them before you merge.
+Aborting
 ```
-然后一路回车，生成ssh key。<br>
-然后在.ssh文件夹下面会生成id_rsa和id_rsa.pub两个文件，id_rsa是私钥，id_rsa.pub是公钥。<br>
-
-### 添加ssh key到github
-打开id_rsa.pub文件，复制里面的内容，然后打开github，点击头像，选择settings，然后选择SSH and GPG keys，然后点击New SSH key，然后把复制的内容粘贴到key里面，然后点击Add SSH key。<br>
-
-### 测试ssh key是否配置成功
+这个错误提示表明你在本地修改了 `docs/index.md` 和 `mkdocs.yml` 这两个文件，而这些修改与你从远程仓库拉取的代码产生了冲突。你有两个解决方案：
+1. 在拉取远程仓库的代码之前，先将你的本地修改提交到本地仓库。你可以执行以下命令：
 ```bash
-ssh -T
+git add docs/index.md mkdocs.yml
+git commit -m "Committing changes before pulling from remote repository"
+git pull
 ```
-如果出现Hi MUCHWAY! You've successfully authenticated, but GitHub does not provide shell access.说明配置成功了。<br>
+2. 在拉取远程仓库的代码之前，将你的本地修改暂存起来。你可以执行以下命令：
+```bash
+git stash
+git pull
+```
+拉取完代码后，你可以使用 `git stash apply` 命令将你的修改应用回来。<br>
+`git stash` 命令可以将你的本地修改暂存起来，以便你可以在不提交修改的情况下切换分支或拉取远程仓库的代码。当你执行 `git stash` 命令时，Git会将你的本地修改保存到一个栈中，并将你的工作目录恢复到上一次提交的状态。这样，你就可以在不提交修改的情况下执行其他操作，比如切换分支或拉取远程仓库的代码。
+当你需要恢复你的本地修改时，可以使用 `git stash apply` 命令将你的修改应用回来。如果你有多个暂存的修改，可以使用 `git stash list` 命令查看所有的暂存记录，并使用 `git stash apply stash@{n}` 命令将指定的暂存记录应用回来。
+
+
+3. 还有以一种情况是想让远程仓库的代码覆盖我本地的代码<br>
+执行 `git fetch` 命令拉取远程仓库的代码;<br>
+执行 `git reset` 命令将本地仓库的 HEAD 指针指向远程仓库的代码;<br>
+这个命令会将本地仓库的 HEAD 指针指向远程仓库的 master 分支的最新提交，同时将你本地的代码覆盖为远程仓库的代码。<br>
+注意：这个操作会丢失你本地未提交的修改，请确保你已经将本地的修改提交或者暂存起来了。
 
 
 
