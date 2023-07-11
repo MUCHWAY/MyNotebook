@@ -8,7 +8,7 @@
 [Git工作流和核心原理 | GitHub基本操作 | VS Code里使用Git和关联GitHub](https://www.bilibili.com/video/BV1r3411F7kn/?spm_id_from%253D333.337.search-card.all.click)
 
 形象地理解Git的原理<br>
-![p1](.\images\p1.png)<br>
+![p1](./images/p1.png)<br>
 具体的Git原理<br>
 ![p2](.\images\p2.png "Git原理")<br>
 我们自己电脑中的文件夹叫做工作区，还有一个隐藏的.git文件夹，叫做版本库，版本库里面存了很多东西，其中最重要的就是stage（暂存区）<bar>
