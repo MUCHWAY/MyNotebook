@@ -1,6 +1,10 @@
-site_name: My Docs
-theme: material
+site_name: NoteBook
+theme:  material
 
 nav:
-  - home: index.md
-  - scaler: scaler.md
+  - Github: github.md
+  - Python: python.md
+  - C++: cpp.md
+  - C: c.md
+  - Markdown: markdown.md
+
