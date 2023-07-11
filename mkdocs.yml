@@ -3,8 +3,8 @@ theme:  material
 
 nav:
   - Github: github.md
-  - Python: python.md
   - C++: cpp.md
   - C: c.md
+  - Python: python.md
   - Markdown: markdown.md
 
