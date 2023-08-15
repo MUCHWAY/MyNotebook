@@ -46,7 +46,7 @@ ssh -T
 ```bash
 git init
 ```
-这样会创建一个.git文件夹，是隐藏的，对于git各种数据都记录在这个文件夹里面。初始化后，默认处于master分支。
+这样会创建一个.git文件夹，是隐藏的，对于git各种数据都记录在这个文件夹里面，暂存区、本地仓库都在这里面了。初始化后，默认处于master分支。
 
 ### 新建一个文件
 ```bash
@@ -63,7 +63,7 @@ git status
 
 ### 添加文件到版本库
 ```bash
-git add .  # 添加所有文件到暂存区
+git add .  # 添加当前目录下所有文件到暂存区
 ```
 
 ### 再次查看状态
@@ -75,7 +75,7 @@ git status
 
 ### 提交文件到版本库
 ```bash
-git commit -m "first commit"  # 提交到分支, -m后面是本次提交的说明
+git commit -m "first commit"  # 提交到本地仓库, -m后面是本次提交的说明
 ```
 
 ### 查看提交日志
@@ -156,8 +156,7 @@ git merge dev  # 把dev分支合并到当前分支
 
 ### 从远程仓库中删除文件
 ```bash
-git rm -r --cached .  # 删除本地缓存
-git add .  # 重新trace file
+git rm -r --cached test.txt  # 删除暂存区中的test.txt文件
 git commit -m "fixed untracked files"
 git push origin master
 ```
