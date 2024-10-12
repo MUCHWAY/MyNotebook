@@ -1,5 +1,5 @@
 site_name: MUCHWAY NoteBook
-# site_url: https://squidfunk.github.io/mkdocs-material/
+site_url: https://muchway.github.io/MyNotebook/
 site_author: MUCHWAY
 site_description: >-
   MUCHWAY NoteBook 是一个记录工作和学习笔记的地方，主要包括工具、编程、项目等内容。
@@ -82,11 +82,13 @@ theme:
 plugins:
 
   - blog
-  
+
   - search:
       separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   - minify:
       minify_html: true
+  
+  - glightbox
 
 # Hooks
 # hooks:
