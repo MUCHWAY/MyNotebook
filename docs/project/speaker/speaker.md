@@ -96,12 +96,19 @@ make install
 ## 关键点记录
 
 ### 验证GPIO
+<center>
 
-![](images/gpio_TP1.png)
-![](images/gpio_TP.png)
+![](images/gpio_TP1.png){width=90%}
+![](images/gpio_TP.png){width=90%}
+
+</center>
 
 下面这张图是从orangepi zero 2w上面用gpio readall读出来的：
-![](images/prangepi_2w_gpio_readall.png)
+<center>
+
+![](images/prangepi_2w_gpio_readall.png){width=90%}
+
+</center>
 
 全志H618的GPIO：[参考链接](https://blog.csdn.net/m0_54943420/article/details/142300115)
 
@@ -173,18 +180,20 @@ sudo mount -t nfs -o nolock,nfsvers=3 192.168.101.77:/home/muchway/zero3 /home/o
 
 一开始做测试时候，我是接了功放板子和载板，发现系统启动不了，调试串口打印的有很多乱码。然后又去做各种测试，发现只有用电脑连接usb时候可以正常启动。后面排查发现是调试串口没有接地的原因。
 在此基础上再做实验，有以下现象：
+<center>
 
 | TTL 2 USB连接PC | | TTL 2 USB不接PC| | 短接TX和RX | TX和RX悬空 |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |接GND|不接GND|接GND|不接GND| | |
 | 能    | 不能     | 能         | 不能          | 不能   | 能      |
 
+</center>
+
 经过研究发现，我们画的载板、官方的载板、orangepi zero 2w，都是一样的现象。
 
 短接TX和RX的原因是，短接之后，TX的输出就作为指令往RX发了，系统不知道怎么回复这些东西，就打断了启动的步骤，所以就启动不起来。
 
-还有发现：
-接GND: TX=3.2V, RX=0V; 不接GND：TX=0.6V, RX=1.38V
+还有发现：接GND: TX=3.2V, RX=0V; 不接GND：TX=0.6V, RX=1.38V  
 不知道这是什么道理，大概率是跟我用的串口转USB模块有关系。
 
 

@@ -8,25 +8,44 @@
 [Git工作流和核心原理 | GitHub基本操作 | VS Code里使用Git和关联GitHub](https://www.bilibili.com/video/BV1r3411F7kn/?spm_id_from%253D333.337.search-card.all.click)
 
 形象地理解Git的原理
-![p1](images/p1.png "武功秘籍")
+
+<center>
+
+![p1](images/p1.png "武功秘籍"){ width=60% }
+<figcaption>武功秘籍</figcaption>
+
+</center>
+
 具体的Git原理
-![p2](images/p2.png "Git原理")
+
+<center>
+
+![p2](images/p2.png "Git原理"){ width=60% }
+<figcaption>Git原理</figcaption>
+
+</center>
+
 我们自己电脑中的文件夹叫做工作区，还有一个隐藏的.git文件夹，叫做版本库，版本库里面存了很多东西，其中最重要的就是stage（暂存区）
 在自己文件中对文件进行修改后，需要先add到暂存区，然后再commit到分支上，最后才是pull到远程仓库
 还有Git为我们自动创建了第一个分支master，以及指向master的一个指针HEAD。 
 
 ## GitHub基本操作
+
 ### 配置Git用户名和邮箱
+
 ```bash
 git config --global user.name "Your Name"
 git config --global user.email "Your Email"
 ```
+
 ### 查看git配置
+
 ```bash
 git config --list
 ```
 
 ### 生成ssh key
+
 ```bash
 ssh-keygen -t rsa -C "XXX@XX.com"
 ```
@@ -34,58 +53,83 @@ ssh-keygen -t rsa -C "XXX@XX.com"
 然后在.ssh文件夹下面会生成id_rsa和id_rsa.pub两个文件，id_rsa是私钥，id_rsa.pub是公钥。
 
 ### 添加ssh key到github
+
 打开id_rsa.pub文件，复制里面的内容，然后打开github，点击头像，选择settings，然后选择SSH and GPG keys，然后点击New SSH key，然后把复制的内容粘贴到key里面，然后点击Add SSH key。
 
 ### 测试ssh key是否配置成功
+
 ```bash
 ssh -T
 ```
 如果出现Hi MUCHWAY! You've successfully authenticated, but GitHub does not provide shell access.说明配置成功了。
 
 ### 创建版本库
+
 ```bash
 git init
 ```
 这样会创建一个.git文件夹，是隐藏的，对于git各种数据都记录在这个文件夹里面，暂存区、本地仓库都在这里面了。初始化后，默认处于master分支。
 
 ### 新建一个文件
+
 ```bash
 echo 'my wiki' > README.md
 ```
 
 ### 查看状态
+
 ```bash
 git status
 ```
 可以看到README.md文件处于未跟踪状态：
-![p3](images/p3.png "未跟踪状态")
+
+<center>
+
+![p3](images/p3.png "未跟踪状态"){width=80%}
+
+</center>
+
 他还提示了我们可以使用git add命令将其添加到暂存区。
 
 ### 添加文件到版本库
+
 ```bash
 git add .  # 添加当前目录下所有文件到暂存区
 ```
 
 ### 再次查看状态
+
 ```bash
 git status
 ```
 可以看到README.md和其他所有文件处于暂存区：
-![p4](images/p4.png "暂存区")
+
+<center>
+
+![p4](images/p4.png "暂存区"){width=80%}
+
+</center>
 
 ### 提交文件到版本库
+
 ```bash
 git commit -m "first commit"  # 提交到本地仓库, -m后面是本次提交的说明
 ```
 
 ### 查看提交日志
+
 ```bash 
 git log
 ```
 可以看到我们刚刚提交的commit：
-![p5](images/p5.png "提交日志")
+<center>
+
+![p5](images/p5.png "提交日志"){width=80%}
+
+</center>
 
 ### 修改文件
+
 ```bash
 echo '## Git工作流和核心原理' >> README.md
 ```
@@ -97,7 +141,12 @@ git add README.md
 git commit -m 'README.md增加了一行'
 ```
 这之后我们再看提交日志：
-![p6](images/p6.png "提交日志")
+<center>
+
+![p6](images/p6.png "提交日志"){width=80%}
+
+</center>
+
 可以看到我们的提交日志是有两个的，第一个是我们第一次提交的，第二个是我们第二次提交的，这就是我们的版本控制。
 
 ### 提交到远程仓库
@@ -110,9 +159,18 @@ git push -u origin master
 ```
 -u是第一次提交的时候需要加的，以后就不需要了。
 这样就把本地的master分支推送到了远程仓库origin上面。
-![p7](images/p7.png "推送到远程仓库")
+<center>
+
+![p7](images/p7.png "推送到远程仓库"){width=90%}
+
+</center>
+
 可以看到我们的github上面已经有了我们的文件了：
+<center>
+
 ![p8](images/p8.png "github上的文件")
+
+</center>
 
 ### 提交忽略文件
 先创建一个.gitignore文件

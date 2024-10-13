@@ -53,30 +53,28 @@ theme:
     # - toc.integrate
 
   palette:
-    - media: "(prefers-color-scheme)"
-      toggle:
-        icon: material/link
-        name: Switch to light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: indigo
       accent: indigo
       toggle:
-        icon: material/toggle-switch
+        icon: material/brightness-7
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: black
       accent: indigo
       toggle:
-        icon: material/toggle-switch-off
-        name: Switch to system preference
+        icon: material/brightness-4
+        name: Switch to light mode
+
   font:
     text: Roboto
     code: Roboto Mono
   favicon: assets/favicon.png
   icon:
     logo: logo
+  
 
 # Plugins
 plugins:
@@ -84,11 +82,15 @@ plugins:
   - blog
 
   - search:
-      separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+      # separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+      separator: '[\s\u200b\-]'
+      
   - minify:
       minify_html: true
   
   - glightbox
+
+  - offline
 
 # Hooks
 # hooks:
@@ -172,9 +174,10 @@ extra_css:
   - stylesheets/extra.css
 
 # Page tree
-nav:
+nav: 
   - 工具:
     - Github: tool/github/github.md
+    - Markdown: tool/markdown/markdown.md
   - 编程:
     - C/C++: program/c_cpp/c_cpp.md
     - Python: program/python/python.md
